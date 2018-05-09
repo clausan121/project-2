@@ -15,9 +15,28 @@ const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
 
+// var SpotifyWebApi = require('spotify-web-api-node');
+ 
+// var spotifyApi = new SpotifyWebApi({
+//   clientId: 'b67eb82b3f7d481e9947e0608e36ca36',
+//   clientSecret: '42d6ddb76fc14eb8b238c989d91f7efd',
+// });
+
+// spotifyApi.setAccessToken('BQBOToLqPW1dR5yvxpRsnpMmxVtdBVDiZpezHkkYGY4yzjCIU_4XcTbqhMQIGGZ1-OSyX4XLnwGSAJs-UKw');
+ 
+
+//   spotifyApi.searchTracks('Love')
+//   .then(function(data) {
+//     console.log('Search by "Love"', data.body);
+//   }, function(err) {
+//     console.error(err);
+//   });
+
+
+
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/mojo-music-app', {useMongoClient: true})
+  .connect(process.env.MONGOURI, {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
@@ -81,15 +100,21 @@ passport.use(new LocalStrategy({
 
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = '🐵 MOJOMOJI';
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 
-const index = require('./routes/index');
-app.use('/', index);
-const authRoutes = require("./routes/auth-routes");
+const playlist = require('./routes/playlist-Routes');
+app.use('/', playlist);
+const authRoutes = require("./routes/auth-Routes");
 app.use('/', authRoutes);
+const songs = require("./routes/songs-Routes");
+app.use('/', songs);
+
+
+
+
 
 module.exports = app;

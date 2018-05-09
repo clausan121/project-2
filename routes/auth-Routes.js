@@ -1,9 +1,10 @@
 // routes/auth-routes.js
 const express = require("express");
 const authRoutes = express.Router();
-const session    = require("express-session");
+// const session    = require("express-session");
 // User model
 const User = require("../models/user");
+const passport = require('passport');
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -45,5 +46,17 @@ authRoutes.post("/signup", (req, res, next) => {
     });
   });
 });
+
+
+authRoutes.get("/login", (req, res, next) => {
+  res.render("auth/login");
+});
+
+authRoutes.post("/login", passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/login",
+  failureFlash: false,
+  passReqToCallback: true
+}));
 
 module.exports = authRoutes;
