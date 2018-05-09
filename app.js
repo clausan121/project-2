@@ -17,13 +17,6 @@ const bcrypt = require("bcrypt");
 
 // var SpotifyWebApi = require('spotify-web-api-node');
  
-// var spotifyApi = new SpotifyWebApi({
-//   clientId: 'b67eb82b3f7d481e9947e0608e36ca36',
-//   clientSecret: '42d6ddb76fc14eb8b238c989d91f7efd',
-// });
-
-// spotifyApi.setAccessToken('BQBOToLqPW1dR5yvxpRsnpMmxVtdBVDiZpezHkkYGY4yzjCIU_4XcTbqhMQIGGZ1-OSyX4XLnwGSAJs-UKw');
- 
 
 //   spotifyApi.searchTracks('Love')
 //   .then(function(data) {
@@ -36,7 +29,7 @@ const bcrypt = require("bcrypt");
 
 mongoose.Promise = Promise;
 mongoose
-  .connect(process.env.MONGOURI, {useMongoClient: true})
+  .connect(process.env.MONGODB_URI, {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {

@@ -16,12 +16,7 @@ $(document).ready(function(){
   //   })
 
   //   // credentials are optional
-  //   var spotifyApi = new SpotifyWebApi({
-  //     clientId: '',
-  //     clientSecret: 'a6338157c9bb5ac9c71924cb2940e1a7',
-  //     redirectUri: 'http://www.example.com/callback'
-  //   });
-    
+
   // }); // END of fetch-all.
 
 
