@@ -5,6 +5,8 @@ const authRoutes = express.Router();
 // User model
 const User = require("../models/user");
 const passport = require('passport');
+const flash = require("connect-flash");
+const ensureLogin = require("connect-ensure-login");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -33,8 +35,8 @@ authRoutes.post("/signup", (req, res, next) => {
     const hashPass = bcrypt.hashSync(password, salt);
 
     const newUser = new User({
-      username,
-      password: hashPass
+      username: username,
+      password: hashPass,
     });
 
     newUser.save((err) => {
@@ -53,7 +55,7 @@ authRoutes.get("/login", (req, res, next) => {
 });
 
 authRoutes.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
+  successRedirect: "/profile",
   failureRedirect: "/login",
   failureFlash: false,
   passReqToCallback: true

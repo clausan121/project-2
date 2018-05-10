@@ -14,6 +14,8 @@ const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
+const flash = require("connect-flash");
+// const SpotifyWebApi = require('spotify-web-api-node');
 
 // var SpotifyWebApi = require('spotify-web-api-node');
  
@@ -61,6 +63,8 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+
+
 //passport config area
 passport.serializeUser((user, cb) => {
   cb(null, user._id);
@@ -91,13 +95,13 @@ passport.use(new LocalStrategy({
   });
 }));
 
+app.use(flash());
 
 // default value for title local
 app.locals.title = '🐵 MOJOMOJI';
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 const playlist = require('./routes/playlist-Routes');
 app.use('/', playlist);

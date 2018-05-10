@@ -1,13 +1,27 @@
 
-<form  id="search-form">
+<form action="/results" method="POST" id="search-form">
   <label for="">Search</label>
-  <input id="search" type="text" placeholder="Song, Artist, Album">
+  <input name="searchterm" id="search" type="text" placeholder="Song, Artist, Album">
  
 <button>Submit</button>
  </form>
 
-
-
  <div id="div-container">
 <audio id="audio-stuff"></audio>
  </div>
+
+ {{!-- <section class="container">
+    	<form onsubmit="submitFn(this, event);">
+            <div class="search-wrapper">
+                <div class="input-holder">
+                    <input type="text" class="search-input" placeholder="Type to search" />
+                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                </div>
+                <span class="close" onclick="searchToggle(this, event);"></span>
+                <div class="result-container">
+
+                </div>
+            </div>
+        </form>
+	</section> --}}
+	
