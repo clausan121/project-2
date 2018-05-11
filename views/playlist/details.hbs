@@ -1,0 +1,22 @@
+{{playlist.emoji}}
+
+<br>
+<br>
+
+
+
+{{#each songs}}
+{{this.title}}
+<br>
+{{this.artist}}
+<br>
+{{this.album}}
+<br>
+<br>
+<audio controls>
+<source src='{{this.preview}}'/>
+</audio>
+<br>
+<br>
+{{/each}}
+

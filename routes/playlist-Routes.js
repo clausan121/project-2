@@ -3,50 +3,79 @@ const express = require("express");
 const playlistRoutes = express.Router();
 const Playlist = require('../models/playlists')
 const Song = require('../models/song')
-const SpotifyWebApi = require('spotify-web-api-node');
 
 
-const spotifyApi = new SpotifyWebApi({
-  clientId:'b67eb82b3f7d481e9947e0608e36ca36',
-  clientSecret:'42d6ddb76fc14eb8b238c989d91f7efd',
-  redirectUri: 'http://localhost:3000/spotify/callback'
+
+
+playlistRoutes.get('/', (req, res, next) => {
+  Playlist.find()
+  .then((allThePlaylists)=>{
+    res.render('playlist/index', {playlists:allThePlaylists});
+
+  })
+
 });
 
-// Retrieve an access token
-spotifyApi.clientCredentialsGrant().then(
-  function(data) {
-    console.log('The access token expires in ' + data.body['expires_in']);
-    console.log('The access token is ' + data.body['access_token']);
 
-    // Save the access token so that it's used in future calls
-    spotifyApi.setAccessToken(data.body['access_token']);
-  },
-  function(err) {
-    console.log(
-      'Something went wrong when retrieving an access token',
-      err.message
-    );
-  }
-);
-
-
-
-playlistRoutes.get("/", (req, res, next) => {
-  res.render("playlist/index");
+playlistRoutes.get("/playlist/new", (req, res, next) => {
+  res.render("playlist/new");
 });
 
 
 
 
-playlistRoutes.post("/", (req, res, next) => {
-
-  
-
+playlistRoutes.post("/playlist/create", (req, res, next) => {
+  Playlist.create({
+    emoji: req.body.emoji,
+    owner:req.user._id
+  })
+  .then ((y)=>{
+    res.redirect ("/")
+  })
 
 }); //end of song post
 
 
+playlistRoutes.post("/song/add", (req, res, next) => {
+  console.log("=====================================================")
+console.log(req.body)
+Song.create({
+  title:req.body.song,
+  preview: req.body.preview,
+  artist: req.body.artist,
+  album: req.body.album,
+  emoji:req.body.emoji
+})
+.then ((theSong)=>{
+Playlist.findOne({emoji: req.body.emoji})
+.then ((thePlaylist)=>{
+  thePlaylist.songs.push(theSong._id)
+  thePlaylist.save()
+  .then(()=>{
+    res.redirect("/")
+  })
+})
 
+})
+});
+
+playlistRoutes.get("/playlist/:id", (req, res, next) => {
+  const songsArray = []
+  Playlist.findById(req.params.id)
+  .then((thePlaylist)=>{
+    thePlaylist.songs.forEach((songID)=>{
+      Song.findById(songID)
+      .then((song)=>{
+        songsArray.push(song)
+        console.log("+++++++++++++", songsArray.length)
+        if(songsArray.length === thePlaylist.songs.length){
+          res.render("playlist/details", {playlist:thePlaylist, songs:songsArray})
+        }
+      })
+    })
+
+  })
+}); 
 
 
 

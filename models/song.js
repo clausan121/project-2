@@ -4,10 +4,9 @@ const Schema   = mongoose.Schema;
 
 const songSchema = new Schema({
   title: String,
-  id: String,
+  preview: String,
   artist: String,
   album: String,
-  year: String,
   
 }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
