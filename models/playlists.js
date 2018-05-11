@@ -11,6 +11,6 @@ const playlistSchema = new Schema({
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });
 
-const Playlist = mongoose.model("User", playlistSchema);
+const Playlist = mongoose.model("Playlist", playlistSchema);
 
 module.exports = Playlist;

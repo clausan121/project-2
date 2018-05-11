@@ -15,17 +15,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const flash = require("connect-flash");
-// const SpotifyWebApi = require('spotify-web-api-node');
-
-// var SpotifyWebApi = require('spotify-web-api-node');
- 
-
-//   spotifyApi.searchTracks('Love')
-//   .then(function(data) {
-//     console.log('Search by "Love"', data.body);
-//   }, function(err) {
-//     console.error(err);
-//   });
+// const SpotifyStrategy = require('passport-spotify').Strategy;
 
 
 
@@ -48,6 +38,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: "our-passport-local-strategy-app",
+  resave: true,
+  saveUninitialized: true
+}));
 
 // Express View engine setup
 
@@ -77,6 +72,7 @@ passport.deserializeUser((id, cb) => {
   });
 });
 
+app.use(flash());
 passport.use(new LocalStrategy({
   passReqToCallback: true
 }, (req, username, password, next) => {
@@ -95,7 +91,18 @@ passport.use(new LocalStrategy({
   });
 }));
 
-app.use(flash());
+// passport.use(new SpotifyStrategy({
+//   clientID: client_id,
+//   clientSecret: client_secret,
+//   callbackURL: "http://localhost:8888/auth/spotify/callback"
+// },
+// function(accessToken, refreshToken, expires_in, profile, done) {
+//   User.findOrCreate({ spotifyId: profile.id }, function (err, user) {
+//     return done(err, user);
+//   });
+// }
+// ));
+
 
 // default value for title local
 app.locals.title = '🐵 MOJOMOJI';

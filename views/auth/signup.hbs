@@ -22,8 +22,13 @@
 					</div>
 				<button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
 			</div>
+			{{#if message}}
+    	<div class="error-message">{{ message }}</div>
+  		{{/if}}
+  		<br><br>
 			<div class="etc-login-form">
 				<p>already have an account? <a href="/login">login here</a></p>
+				<p>or go back to explore <a href="/">home page</a></p>
 			</div>
 		</form>
 	</div>

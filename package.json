@@ -28,6 +28,7 @@
     "particles.js": "^2.0.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "passport-spotify": "^1.0.0",
     "serve-favicon": "~2.4.5",
     "session": "^0.1.0",
     "spotify-web-api-node": "^3.1.1"

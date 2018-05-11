@@ -1,1 +1,55 @@
-<h1>Welcome to Cloudinary Demo</h1>
+
+    <!-- Container -->
+    <div class="container">
+
+      <!-- Masthead -->
+      <div class="masthead">
+
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1>Welcome</h1>
+        <p class="lead">{{user.username}}</p>
+      </div>
+
+      <!-- Grid -->
+      <div class="row"></div>
+        <p class="lead">My Playlists</p>
+        <div class="col-md-2 col-xs-3">
+          <p><img class="img-rounded" src="./images/robo-emoji.png" alt="Generic placeholder image" width="100" height="100" /></p>
+          <h3>Electronic</h3>
+          <p>A playlist of all my favorite electro-pop music</p>
+        </div>
+        <div class="col-md-2 col-xs-3">
+          <p><img class="img-rounded" src="./images/palm-tree.png" alt="Generic placeholder image" width="100" height="100" /></p>
+          <h3>Beach Tunes</h3>
+          <p>For when I'm chillin in the Maldives</p>
+        </div>
+        <div class="col-md-2 col-xs-3">
+          <p><img class="img-rounded" src="./images/taco-emoji.png" alt="Generic placeholder image" width="100" height="100" /></p>
+          <h3>Fiesta</h3>
+          <p>Anything for Selenas</p>
+        </div>
+        <div class="col-md-2 col-xs-3">
+          <p><img class="img-rounded" src="./images/violin.png" alt="Generic placeholder image" width="100" height="100" /></p>
+          <h3>Classical</h3>
+          <p>Mozart, Beethoven, some other dead guy</p>
+        </div>
+        <div class="col-md-2 col-xs-3">
+          <p><img class="img-rounded" src="./images/umbrella.png" alt="Generic placeholder image" width="100" height="100" /></p>
+          <h3>Rainy Day</h3>
+          <p>The perfect playlist for crying in the bathroom - mostly Norah Jones and Adele</p>
+        </div>
+        <div class="col-md-2 col-xs-3">
+          <p><img class="img-rounded" src="./images/heart-eyes.png" alt="Generic placeholder image" width="100" height="100" /></p>
+          <h3>Heart Eyes</h3>
+          <p>All the feels</p>
+        </div>
+      </div>
+{{#if user}}
+  <div>
+    <a href="/logout">Log Out</a>
+  </div>
+ <div>
+    <a href="/search">Search</a>
+  </div>
+{{/if}}

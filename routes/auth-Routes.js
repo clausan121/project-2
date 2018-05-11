@@ -1,14 +1,11 @@
 // routes/auth-routes.js
 const express = require("express");
 const authRoutes = express.Router();
-// const session    = require("express-session");
-// User model
 const User = require("../models/user");
+const session    = require("express-session");
 const passport = require('passport');
 const flash = require("connect-flash");
 const ensureLogin = require("connect-ensure-login");
-
-// Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
@@ -51,14 +48,37 @@ authRoutes.post("/signup", (req, res, next) => {
 
 
 authRoutes.get("/login", (req, res, next) => {
-  res.render("auth/login");
+  res.render("auth/login", { "message": req.flash("error") });
 });
 
 authRoutes.post("/login", passport.authenticate("local", {
   successRedirect: "/profile",
   failureRedirect: "/login",
-  failureFlash: false,
+  failureFlash: true,
   passReqToCallback: true
 }));
+
+authRoutes.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
+  res.render("auth/profile", { user: req.user });
+});
+
+// authRoutes.get('/auth/spotify',
+//   passport.authenticate('spotify'),
+//   function(req, res){
+//     // The request will be redirected to spotify for authentication, so this
+//     // function will not be called.
+//   });
+
+// authRoutes.get('/auth/spotify/callback',
+//   passport.authenticate('spotify', { failureRedirect: '/login' }),
+//   function(req, res) {
+//     // Successful authentication, redirect
+//     res.redirect('/profile');
+//   });
+
+authRoutes.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/login");
+});
 
 module.exports = authRoutes;

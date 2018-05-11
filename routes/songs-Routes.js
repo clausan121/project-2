@@ -6,8 +6,9 @@ const SpotifyWebApi = require('spotify-web-api-node');
 
 
 const spotifyApi = new SpotifyWebApi({
-  clientId: 'b67eb82b3f7d481e9947e0608e36ca36',
-  clientSecret: '42d6ddb76fc14eb8b238c989d91f7efd'
+  clientId:'b67eb82b3f7d481e9947e0608e36ca36',
+  clientSecret:'42d6ddb76fc14eb8b238c989d91f7efd',
+  redirectUri: 'http://localhost:3000/spotify/callback'
 });
 
 // Retrieve an access token
@@ -48,31 +49,19 @@ songsRoutes.post("/results", (req, res, next) => {
       stuff.album = result[0].album.name;
       stuff.name = result[0].name;
       stuff.image = result[0].album.images[1].url;
-      stuff.link =result[0].href;
-      // res.json(stuff)
-      res.render("songs/results", stuffh)
+      stuff.preview =result[0].preview_url;
+      // res.json(result[0].preview_url)
+      res.render("songs/results", stuff)
+      // console.log(result[0])
     })
     .catch ((err)=>{
       console.log(err);
     })
   
-   
-
-  // res.render("songs/results");
 
 
 }); //end of song post
 
-
-
-
-//Search tracks whose artist's name contains 'Kendrick Lamar', and track name contains 'Alright'
-// spotifyApi.searchTracks('track:Alright artist:Kendrick Lamar')
-//   .then(function(data) {
-//     console.log('Search tracks by "Alright" in the track name and "Kendrick Lamar" in the artist name', data.body);
-//   }, function(err) {
-//     console.log('Something went wrong!', err);
-//   });
 
 
 
